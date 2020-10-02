@@ -28,7 +28,6 @@ const breedsList = []
     console.log(breeds)
     const ulTag = document.querySelector('ul#dog-breeds')
     breeds.forEach(breed => {
-        debugger
     breedsList.push(breed)
     const newLi = document.createElement('li')
     newLi.innerHTML = breed
@@ -54,12 +53,23 @@ const breedsList = []
 
     let dropdownSelection = document.getElementById("breed-dropdown");  
     const liLists = document.querySelectorAll('li')
-    dropdownSelection.onchange = function () {  
-    liLists.forEach(liList => {
-        if (!liList.innerText.startsWith(dropdownSelection.value)){
-            liList.parentNode.removeChild(liList);
-        }
+
+    dropdownSelection.onchange = function () { 
+    const breedsName = breedsList.filter(breed => breed.startsWith(dropdownSelection.value))
+    const ulTag = document.querySelector('ul#dog-breeds')
+    ulTag.remove()
+    const newUl = document.createElement('ul')
+    newUl.id = "dog-breeds"
+
+    breedsName.forEach(breed => {
+        const newLi = document.createElement('li')
+        newLi.innerText = breed;
+        newLi.addEventListener('click', function() {
+            newLi.style.color = "red"
+        })
+        newUl.appendChild(newLi)
     })
+    document.body.appendChild(newUl)
 }
 
 
